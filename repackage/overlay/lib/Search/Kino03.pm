@@ -5,48 +5,16 @@ use strict;
 
 =head1 NAME
 
-Search::Kino03 - The great new Search::Kino03!
+Search::Kino03 - A repackaging of the 0.3 version of KinoSearch
 
 =head1 VERSION
 
-Version 0.01
+Version 0.010
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.010';
 
-
-=head1 SYNOPSIS
-
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
-    use Search::Kino03;
-
-    my $foo = Search::Kino03->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 FUNCTIONS
-
-=head2 function1
-
-=cut
-
-sub function1 {
-}
-
-=head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 

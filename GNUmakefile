@@ -27,7 +27,7 @@ reset: clean
 
 repackage: repackage-only
 	rsync -av $(PACKAGE_dir)/ ./
-	rm -f _Build.PL
+	rm -f _Build.PL _MANIFEST
 	rm -rf devel
 
 repackage-only:

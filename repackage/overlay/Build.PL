@@ -34,4 +34,9 @@ my $builder = KinoSearch::Build->new(
     },
 );
 
+if (-e 'MANIFEST.SKIP') {
+    my $all_from = join '/', 'lib', split m/::/, $builder->module_name . '.pm';
+    `perldoc -tF $all_from > README` if ! -e 'README' || (stat $all_from)[9] > (stat 'README')[9];
+}
+
 $builder->create_build_script();
