@@ -1,4 +1,4 @@
-.PHONY: all test clean distclean dist repackage repackage-only
+.PHONY: all test clean distclean dist repackage repackage-only repackage-build
 
 PACKAGE := Search::Kino03
 PACKAGE_dir := Search-Kino03
@@ -25,6 +25,11 @@ PACKAGE_dir := Search-Kino03
 #     perl Makefile.PL
 #     $(MAKE) test
 
+repackage: repackage-only
+	rsync -av $(PACKAGE_dir)/ ./
+	rm -f _Build.PL
+	rm -rf sample devel
+
 repackage-only:
 	rm -rf $(PACKAGE_dir)
 	rsync -av KinoSearch-0.30_01/ $(PACKAGE_dir)
@@ -33,5 +38,5 @@ repackage-only:
 	./repackage/script/repackage $(PACKAGE)
 #     cd $(PACKAGE_dir) && cp _Build.PL Build.PL
 
-repackage: repackage-only
+repackage-build: repackage-only
 	cd $(PACKAGE_dir) && perl Build.PL && ./Build

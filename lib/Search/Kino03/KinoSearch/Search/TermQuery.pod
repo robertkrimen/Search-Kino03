@@ -1,0 +1,64 @@
+
+# Auto-generated file -- DO NOT EDIT!!!!!
+
+=head1 NAME
+
+Search::Kino03::KinoSearch::Search::TermQuery - Query which matches individual terms.
+
+=head1 SYNOPSIS
+
+    my $term_query = Search::Kino03::KinoSearch::Search::TermQuery->new(
+        field => 'content',
+        term  => 'foo', 
+    );
+    my $hits = $searcher->hits( query => $term_query );
+
+
+
+=head1 DESCRIPTION
+
+TermQuery is a subclass of L<Search::Kino03::KinoSearch::Search::Query> for matching
+individual terms in a specific field.
+
+=head1 CONSTRUCTORS
+
+=head2 new( I<[labeled params]> )
+
+    my $term_query = Search::Kino03::KinoSearch::Search::TermQuery->new(
+        field => 'content',    # required
+        term  => 'foo',        # required
+    );
+
+=over
+
+=item *
+
+B<field> - Field name.
+
+=item *
+
+B<term> - Term text.
+
+=back
+
+
+
+
+
+
+
+=head1 INHERITANCE
+
+Search::Kino03::KinoSearch::Search::TermQuery isa L<Search::Kino03::KinoSearch::Search::Query> isa L<Search::Kino03::KinoSearch::Obj>.
+
+
+=head1 COPYRIGHT
+
+Copyright 2005-2009 Marvin Humphrey
+
+=head1 LICENSE, DISCLAIMER, BUGS, etc.
+
+See L<KinoSearch> version 0.30.
+
+=cut
+

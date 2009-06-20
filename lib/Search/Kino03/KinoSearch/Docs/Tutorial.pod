@@ -1,0 +1,81 @@
+=head1 NAME
+
+Search::Kino03::KinoSearch::Docs::Tutorial - Step-by-step introduction to KinoSearch toolset.
+
+=head1 ABSTRACT 
+
+Explore KinoSearch's basic functionality by starting with a minimalist CGI
+search app based on L<Search::Kino03::KSx::Simple> and transforming it, step by step, into an
+"advanced search" interface utilizing more flexible core modules like
+L<Search::Kino03::KinoSearch::Indexer> and L<Search::Kino03::KinoSearch::Searcher>.
+
+=head1 DESCRIPTION
+
+=head2 Chapters
+
+=over
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::Simple> - Build a bare-bones search app using
+L<Search::Kino03::KSx::Simple>.
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::BeyondSimple> - Rebuild the app using
+core classes like L<Indexer|Search::Kino03::KinoSearch::Indexer> and
+L<Searcher|Search::Kino03::KinoSearch::Searcher> in place of Search::Kino03::KSx::Simple.
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::FieldType> - Experiment with different field
+characteristics using subclasses of L<Search::Kino03::KinoSearch::FieldType>.
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::Analysis> - Examine how the choice of
+L<Search::Kino03::KinoSearch::Analysis::Analyzer> subclass affects search results.
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::Highlighter> - Augment search results with
+highlighted excerpts.
+
+=item *
+
+L<Search::Kino03::KinoSearch::Docs::Tutorial::QueryObjects> - Unlock advanced search features
+by using Query objects instead of query strings.
+
+=back
+
+=head2 Source materials
+
+The source material used by the tutorial app -- an html presentation of the
+United States constitution -- can be found in the C<sample>
+directory at the root of the KinoSearch distribution, along with finished
+indexing and search apps.
+
+    sample/indexer.pl        # indexing app
+    sample/search.cgi        # search app
+    sample/us_constitution   # html documents
+
+=head2 Conventions
+
+The user is expected to be familiar with OO Perl and basic CGI programming.
+
+The code in this tutorial assumes a Unix-flavored operating system and the
+Apache webserver, but will work with minor modifications on other setups.
+
+=head1 SEE ALSO
+
+More advanced and esoteric subjects are covered in
+L<Search::Kino03::KinoSearch::Docs::Cookbook>.
+
+=head1 COPYRIGHT
+
+Copyright 2005-2009 Marvin Humphrey
+
+=head1 LICENSE, DISCLAIMER, BUGS, etc.
+
+See L<KinoSearch> version 0.30.
+

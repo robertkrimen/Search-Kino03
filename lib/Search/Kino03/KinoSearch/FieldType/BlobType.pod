@@ -1,0 +1,51 @@
+
+# Auto-generated file -- DO NOT EDIT!!!!!
+
+=head1 NAME
+
+Search::Kino03::KinoSearch::FieldType::BlobType - Default behaviors for binary fields.
+
+=head1 SYNOPSIS
+
+    my $string_type = Search::Kino03::KinoSearch::FieldType::StringType->new;
+    my $blob_type   = Search::Kino03::KinoSearch::FieldType::BlobType->new;
+    my $schema      = Search::Kino03::KinoSearch::Schema->new;
+    $schema->spec_field( name => 'id',   type => $string_type );
+    $schema->spec_field( name => 'jpeg', type => $blob_type );
+
+
+
+=head1 DESCRIPTION
+
+BlobType is an implementation of FieldType tuned for use with fields
+containing binary data, which cannot be indexed or searched -- only stored.
+
+=head1 CONSTRUCTORS
+
+=head2 new()
+
+    my $blob_type = Search::Kino03::KinoSearch::FieldType::BlobType->new;
+
+Constructor.  Takes no arguments.
+
+
+
+
+
+
+
+=head1 INHERITANCE
+
+Search::Kino03::KinoSearch::FieldType::BlobType isa L<Search::Kino03::KinoSearch::FieldType> isa L<Search::Kino03::KinoSearch::Obj>.
+
+
+=head1 COPYRIGHT
+
+Copyright 2005-2009 Marvin Humphrey
+
+=head1 LICENSE, DISCLAIMER, BUGS, etc.
+
+See L<KinoSearch> version 0.30.
+
+=cut
+
