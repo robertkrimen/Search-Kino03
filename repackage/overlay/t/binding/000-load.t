@@ -7,14 +7,14 @@ use File::Find 'find';
 my @modules;
 
 my %excluded = map { ( $_ => 1 ) } qw(
-    Search::Kino030::KinoSearch::Analysis::LCNormalizer
-    Search::Kino030::KinoSearch::Index::Term
-    Search::Kino030::KinoSearch::InvIndex
-    Search::Kino030::KinoSearch::InvIndexer
-    Search::Kino030::KinoSearch::Search::BooleanQuery
-    Search::Kino030::KinoSearch::Search::Scorer
-    Search::Kino030::KinoSearch::Search::SearchClient
-    Search::Kino030::KinoSearch::Search::SearchServer
+    ___KS_PACKAGE___::KinoSearch::Analysis::LCNormalizer
+    ___KS_PACKAGE___::KinoSearch::Index::Term
+    ___KS_PACKAGE___::KinoSearch::InvIndex
+    ___KS_PACKAGE___::KinoSearch::InvIndexer
+    ___KS_PACKAGE___::KinoSearch::Search::BooleanQuery
+    ___KS_PACKAGE___::KinoSearch::Search::Scorer
+    ___KS_PACKAGE___::KinoSearch::Search::SearchClient
+    ___KS_PACKAGE___::KinoSearch::Search::SearchServer
 );
 
 find(
@@ -30,12 +30,11 @@ find(
 plan( tests => scalar @modules );
 
 for (@modules) {
-    s/^.*?(KinoSearch|KSx)/$1/;
+    s#^.*?(___KS_PACKAGE_PATH___)#$1#;
     s/\.pm$//;
     s/\W+/::/g;
-    $_ = "Search::Kino030::$_";
     if ( $excluded{$_} ) {
-        eval qq|use $_;|;
+        eval qq|use $_|;
         like( $@, qr/removed|replaced/i,
             "Removed module '$_' throws error on load" );
     }

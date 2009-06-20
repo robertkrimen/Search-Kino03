@@ -9,72 +9,83 @@ sub mkpath (@) {
     dir( $_ )->mkpath for @_;
 }
 
-my $dir = 'Search-Kino030';
-# Overlay
-if (0) {
-    system "rsync -av overlay/ overlay-working/";
-    system "find overlay-working/ -type f | xargs perl -p -i -e's{___KS_PACKAGE___}{Search::Kino030::KinoSearch}g'";
-    system "rsync -av overlay-working/ $dir/"
-}
+my $package = shift @ARGV or die "No package name given";
+(my $package_dash = $package) =~ s/::/-/g;
+(my $package_path = $package) =~ s/::/\//g;
+my @package_list = split m/::/, $package;
+my $package_list_path = join ', ', map { "'$_'" } @package_list;
+
+my $dir = $package_dash;
 
 chdir $dir;
 
-system q[perl -p -i -e"s{'KinoSearch'}{'Search::Kino030::KinoSearch'}g" Build.PL lib/KinoSearch.pm t/002-kinosearch.t];
-system "perl -p -i -e's{KinoSearch.pm}{Search/Kino030/KinoSearch.pm}g' Build.PL";
-system "perl -p -i -e's{package KinoSearch;}{package Search::Kino030::KinoSearch;}g' lib/KinoSearch.pm";
+system qq[perl -p -i -e"s{'KinoSearch'}{'${package}::KinoSearch'}g" _Build.PL lib/KinoSearch.pm t/002-kinosearch.t];
+system "perl -p -i -e's{KinoSearch.pm}{${package_path}/KinoSearch.pm}g' _Build.PL";
+system "perl -p -i -e's{package KinoSearch;}{package ${package}::KinoSearch;}g' lib/KinoSearch.pm";
+system qq[perl -p -i -e"s{, '0.30_01'}{, '0.010'}g" lib/KinoSearch.pm];
 
 # lib/ boilerplater/ t/
 {
-#    system "ack -f --perl lib t | xargs perl -p -i -e's/KinoSearch::/Search::Kino030::KinoSearch::/g'";
-    system "ack -f --perl lib boilerplater t | xargs perl -p -i -e's/KinoSearch::/Search::Kino030::KinoSearch::/g'";
-    system "ack -f --perl lib boilerplater t | xargs perl -p -i -e's/KSx::/Search::Kino030::KSx::/g'";
-    system "ack -f --perl boilerplater | xargs perl -p -i -e's{KinoSearch/}{Search/Kino030/KinoSearch/}g'";
-    system "ack -f --perl boilerplater | xargs perl -p -i -e's{KSx/}{Search/Kino030/KSx/}g'";
+#    system "ack -f --perl lib t | xargs perl -p -i -e's/KinoSearch::/${package}::KinoSearch::/g'";
+    system "ack -f --perl lib boilerplater t | xargs perl -p -i -e's/KinoSearch::/${package}::KinoSearch::/g'";
+    system "ack -f --perl lib boilerplater t | xargs perl -p -i -e's/KSx::/${package}::KSx::/g'";
+    system "ack -f --perl boilerplater | xargs perl -p -i -e's{KinoSearch/}{${package_path}/KinoSearch/}g'";
+    system "ack -f --perl boilerplater | xargs perl -p -i -e's{KSx/}{${package_path}/KSx/}g'";
 
-    system "ack -f --perl lib | xargs perl -p -i -e's/use KinoSearch/use Search::Kino030::KinoSearch/g'";
-    system "ack -f --perl lib | xargs perl -p -i -e's/MODULE = KinoSearch/MODULE = Search::Kino030::KinoSearch/g'";
+    system "ack -f --perl lib | xargs perl -p -i -e's/use KinoSearch/use ${package}::KinoSearch/g'";
+    system "ack -f --perl lib | xargs perl -p -i -e's/MODULE = KinoSearch/MODULE = ${package}::KinoSearch/g'";
 
-    mkpath 'lib/Search/Kino030';
-    system "cd lib && mv K* Search/Kino030";
+    mkpath "lib/${package_path}";
+    system "cd lib && mv K* ${package_path}";
 }
 
 # core/
 {
-    system "find core -name '*.bp' | xargs perl -p -i -e's/KinoSearch::/Search::Kino030::KinoSearch::/g'";
-    system "find core -name '*.bp' | xargs perl -p -i -e's/KSx::/Search::Kino030::KSx::/g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's/KinoSearch::/${package}::KinoSearch::/g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's/KSx::/${package}::KSx::/g'";
 
-    system "find core -name '*.bp' | xargs perl -p -i -e's/parcel KinoSearch/parcel Search::Kino030::KinoSearch/g'";
-    system "find core -name '*.bp' | xargs perl -p -i -e's/parcel KSx/parcel Search::Kino030::KSx/g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's/parcel KinoSearch/parcel ${package}::KinoSearch/g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's/parcel KSx/parcel ${package}::KSx/g'";
 
-    system "find core -name '*.bp' | xargs perl -p -i -e's{KinoSearch/}{Search/Kino030/KinoSearch/}g'";
-    system "find core -name '*.bp' | xargs perl -p -i -e's{KSx/}{Search/Kino030/KSx/}g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's{KinoSearch/}{${package_path}/KinoSearch/}g'";
+    system "find core -name '*.bp' | xargs perl -p -i -e's{KSx/}{${package_path}/KSx/}g'";
 
-    system "ack -f --c core | xargs perl -p -i -e's{KinoSearch/}{Search/Kino030/KinoSearch/}g'";
-    system "ack -f --c core | xargs perl -p -i -e's{KSx/}{Search/Kino030/KSx/}g'";
+    system "ack -f --c core | xargs perl -p -i -e's{KinoSearch/}{${package_path}/KinoSearch/}g'";
+    system "ack -f --c core | xargs perl -p -i -e's{KSx/}{${package_path}/KSx/}g'";
 
-    mkpath 'core/Search/Kino030';
-    system "cd core && mv K* Search/Kino030";
+    mkpath "core/${package_path}";
+    system "cd core && mv K* ${package_path}";
 }
 
 # xs/
 {
-    system "ack -f --c xs | xargs perl -p -i -e's{KinoSearch/}{Search/Kino030/KinoSearch/}g'";
-    system "ack -f --c xs | xargs perl -p -i -e's{KSx/}{Search/Kino030/KSx/}g'";
+    system "ack -f --c xs | xargs perl -p -i -e's{KinoSearch/}{${package_path}/KinoSearch/}g'";
+    system "ack -f --c xs | xargs perl -p -i -e's{KSx/}{${package_path}/KSx/}g'";
 
-    mkpath 'Search/Kino030', 'xs/Search/Kino030';
+    mkpath "${package_path}", "xs/${package_path}";
 
-    system "cd xs && mv KinoSearch Search/Kino030";
+    system "cd xs && mv KinoSearch ${package_path}";
 
 }
 
 # buildlib/
 {
-    system "perl -p -i -e's{KinoSearch[./\\\$](?!bs|\\\$)}{Search/Kino030/\$&}g' buildlib/Lucy/Build.pm";
-    system "perl -p -i -e's{lib KinoSearch}{lib Search Kino030 KinoSearch}g' buildlib/Lucy/Build.pm";
-    system "perl -p -i -e's{KinoSearch::Redacted}{Search::Kino030::KinoSearch::Redacted}g' buildlib/Lucy/Build.pm";
-    system q[perl -p -i -e"s{'auto', 'KinoSearch'}{'auto', 'Search', 'Kino030', 'KinoSearch'}g" buildlib/Lucy/Build.pm];
+    system "perl -p -i -e's{KinoSearch[./\\\$](?!bs|\\\$)}{${package_path}/\$&}g' buildlib/Lucy/Build.pm";
+    system "perl -p -i -e's{lib KinoSearch}{lib @package_list KinoSearch}g' buildlib/Lucy/Build.pm";
+    system "perl -p -i -e's{KinoSearch::Redacted}{${package}::KinoSearch::Redacted}g' buildlib/Lucy/Build.pm";
+    system qq[perl -p -i -e"s{'auto', 'KinoSearch'}{'auto', $package_list_path, 'KinoSearch'}g" buildlib/Lucy/Build.pm];
 }
 
+chdir '..';
+
+# Overlay
+{
+    system "rsync -Cav repackage/overlay/ overlay.tmp/";
+    system "find overlay.tmp/ -type f | xargs perl -p -i -e's{___KS_PACKAGE___}{$package}g'";
+    system "find overlay.tmp/ -type f | xargs perl -p -i -e's{___KS_PACKAGE_PATH___}{$package_path}g'";
+    system "rsync -av overlay.tmp/ $dir/";
+    system "rm -rf overlay.tmp/";
+}
 #system "perl -p -i -e's{KINO_ Kino_ kino_}{SK030_KINO_ SK030_Kino_ SK030_kino_}g' buildlib/Lucy/Build.pm";
 #for (qw/KINO Kino kino/) {
 #    system "find . -name '*.bp' -or -name '*.c' -or -name '*.xs' -or -name '*.h' | xargs perl -p -i -e's/${_}_/SK030_${_}_/g'";

@@ -1,33 +1,37 @@
 .PHONY: all test clean distclean dist repackage repackage-only
 
-all: test
+PACKAGE := Search::Kino03
+PACKAGE_dir := Search-Kino03
 
-dist:
-	rm -rf inc META.y*ml
-	perl Makefile.PL
-	$(MAKE) -f Makefile dist
+# all: test
 
-install distclean tardist: Makefile
-	$(MAKE) -f $< $@
+# dist:
+#     rm -rf inc META.y*ml
+#     perl Makefile.PL
+#     $(MAKE) -f Makefile dist
 
-test: Makefile
-	TEST_RELEASE=1 $(MAKE) -f $< $@
+# install distclean tardist: Makefile
+#     $(MAKE) -f $< $@
 
-Makefile: Makefile.PL
-	perl $<
+# test: Makefile
+#     TEST_RELEASE=1 $(MAKE) -f $< $@
 
-clean: distclean
+# Makefile: Makefile.PL
+#     perl $<
 
-reset: clean
-	perl Makefile.PL
-	$(MAKE) test
+# clean: distclean
+
+# reset: clean
+#     perl Makefile.PL
+#     $(MAKE) test
 
 repackage-only:
-	rm -rf Search-Kino030
-	rsync -av KinoSearch-0.30_01/ Search-Kino030/
-	chmod -R +w Search-Kino030/
-	./script/repackage
-	rm -rf overlay-working
+	rm -rf $(PACKAGE_dir)
+	rsync -av KinoSearch-0.30_01/ $(PACKAGE_dir)
+	cd $(PACKAGE_dir) && mv Build.PL _Build.PL
+	chmod -R +w $(PACKAGE_dir)/
+	./repackage/script/repackage $(PACKAGE)
+#     cd $(PACKAGE_dir) && cp _Build.PL Build.PL
 
 repackage: repackage-only
-	cd Search-Kino030 && perl Build.PL && ./Build
+	cd $(PACKAGE_dir) && perl Build.PL && ./Build
