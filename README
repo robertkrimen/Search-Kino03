@@ -1,0 +1,46 @@
+NAME
+    Search::Kino03 - A repackaging of the 0.3 version of KinoSearch
+
+VERSION
+    Version 0.010
+
+AUTHOR
+    Robert Krimen, "<rkrimen at cpan.org>"
+
+BUGS
+    Please report any bugs or feature requests to "bug-search-kino03 at
+    rt.cpan.org", or through the web interface at
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Search-Kino03>. I will
+    be notified, and then you'll automatically be notified of progress on
+    your bug as I make changes.
+
+SUPPORT
+    You can find documentation for this module with the perldoc command.
+
+        perldoc Search::Kino03
+
+    You can also look for information at:
+
+    *   RT: CPAN's request tracker
+
+        <http://rt.cpan.org/NoAuth/Bugs.html?Dist=Search-Kino03>
+
+    *   AnnoCPAN: Annotated CPAN documentation
+
+        <http://annocpan.org/dist/Search-Kino03>
+
+    *   CPAN Ratings
+
+        <http://cpanratings.perl.org/d/Search-Kino03>
+
+    *   Search CPAN
+
+        <http://search.cpan.org/dist/Search-Kino03/>
+
+ACKNOWLEDGEMENTS
+COPYRIGHT & LICENSE
+    Copyright 2009 Robert Krimen, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
