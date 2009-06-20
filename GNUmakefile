@@ -1,4 +1,4 @@
-.PHONY: all test clean distclean dist rebase
+.PHONY: all test clean distclean dist repackage repackage-only
 
 all: test
 
@@ -22,8 +22,12 @@ reset: clean
 	perl Makefile.PL
 	$(MAKE) test
 
-rebase:
+repackage-only:
 	rm -rf Search-Kino030
 	rsync -av KinoSearch-0.30_01/ Search-Kino030/
 	chmod -R +w Search-Kino030/
-	./script/rebase
+	./script/repackage
+	rm -rf overlay-working
+
+repackage: repackage-only
+	cd Search-Kino030 && perl Build.PL && ./Build
