@@ -3,32 +3,32 @@
 PACKAGE := Search::Kino03
 PACKAGE_dir := Search-Kino03
 
-# all: test
+all: test
 
-# dist:
-#     rm -rf inc META.y*ml
-#     perl Makefile.PL
-#     $(MAKE) -f Makefile dist
+dist:
+	rm -rf inc META.y*ml
+	perl Build.PL
+	./Build dist
 
-# install distclean tardist: Makefile
+# install distclean tardist: Build
 #     $(MAKE) -f $< $@
 
-# test: Makefile
-#     TEST_RELEASE=1 $(MAKE) -f $< $@
+Build: Build.PL
+	perl $<
 
-# Makefile: Makefile.PL
-#     perl $<
+test: Build
+	./Build test
 
-# clean: distclean
+ clean: distclean
 
-# reset: clean
-#     perl Makefile.PL
-#     $(MAKE) test
+reset: clean
+	perl Build.PL
+	./Build test
 
 repackage: repackage-only
 	rsync -av $(PACKAGE_dir)/ ./
 	rm -f _Build.PL
-	rm -rf sample devel
+	rm -rf devel
 
 repackage-only:
 	rm -rf $(PACKAGE_dir)
