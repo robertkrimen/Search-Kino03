@@ -23,6 +23,8 @@ system qq[perl -p -i -e"s{'KinoSearch'}{'${package}::KinoSearch'}g" _Build.PL li
 system "perl -p -i -e's{KinoSearch.pm}{${package_path}/KinoSearch.pm}g' _Build.PL";
 system "perl -p -i -e's{package KinoSearch;}{package ${package}::KinoSearch;}g' lib/KinoSearch.pm";
 system qq[perl -p -i -e"s{, '0.30_01'}{, '0.010'}g" lib/KinoSearch.pm];
+system "perl -p -i -e's{KinoSearch(?!/Build.pm)}{${package_path}/KinoSearch}g' _MANIFEST";
+system "perl -p -i -e's{KSx}{${package_path}/KSx}g' _MANIFEST";
 
 # lib/ boilerplater/ t/
 {

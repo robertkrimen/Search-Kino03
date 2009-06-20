@@ -34,6 +34,7 @@ repackage-only:
 	rm -rf $(PACKAGE_dir)
 	rsync -av KinoSearch-0.30_01/ $(PACKAGE_dir)
 	cd $(PACKAGE_dir) && mv Build.PL _Build.PL
+	cd $(PACKAGE_dir) && mv MANIFEST _MANIFEST
 	chmod -R +w $(PACKAGE_dir)/
 	./repackage/script/repackage $(PACKAGE)
 #     cd $(PACKAGE_dir) && cp _Build.PL Build.PL
